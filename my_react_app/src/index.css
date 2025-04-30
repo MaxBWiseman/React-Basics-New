@@ -1,3 +1,9 @@
+/* You decalre your CSS file for the HTML as "your file name".css. 
+   This is the CSS file for the HTML file in the React app. 
+   You can add your own CSS styles here to customize the look and feel of your app. 
+   The styles defined here will be applied to the elements in your HTML file.
+   This file is imported in the index.jsx file of the React app.
+*/
 @import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap");
 
 * {
