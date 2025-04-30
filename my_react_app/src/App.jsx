@@ -1,6 +1,23 @@
-import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+// Import the image used in the header from the assets folder.
 import './App.css'
+// Import the CSS file used to style the app. index.css is used for global styles,
+// while App.css is used for component-specific styles.
+
+const reactDescriptions = [
+  "A JavaScript library for building user interfaces",
+  "A JavaScript library for creating single-page applications",
+  "A JavaScript library for creating reusable UI components",
+  "A JavaScript library for creating complex UIs from simple components",
+  "A JavaScript library for creating interactive UIs",
+  "A JavaScript library for creating dynamic UIs",
+  "A JavaScript library for creating responsive UIs",
+];
+
+function RandomInt(max) {
+  return Math.floor(Math.random() * (max + 1));
+  // The above function returns a random integer between 0 and the max value.
+}
 
 function Header() {
   return (
@@ -9,8 +26,13 @@ function Header() {
       {/* The above image is imported from the assets folder above. */}
       <h1>React Essentials</h1>
       <p>
-        Fundamental React concepts you will need for almost any app you are
-        going to build!
+        {reactDescriptions[RandomInt(reactDescriptions.length - 1)]}
+        {/*The above function returns a random description from the reactDescriptions array.
+          The RandomInt function is used to get a random index from the array.
+          The length of the array is used to get the maximum index.
+          The -1 is used to get a random index between 0 and the length of the array due
+          to zero indexing. You can only parse JavaScript code into curly braces like this {}
+          if the expression directley produces a value.*/}
       </p>
     </header>
   );
