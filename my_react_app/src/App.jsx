@@ -1,5 +1,8 @@
-import reactLogo from './assets/react.svg'
+import reactLogo from './assets/react-core-concepts.png'
 // Import the image used in the header from the assets folder.
+// This is the standard way to use images in React.Reference the image in the
+// JSX code using the variable name reactLogo.
+import componentsImg from './assets/components.png'
 import './App.css'
 // Import the CSS file used to style the app. index.css is used for global styles,
 // while App.css is used for component-specific styles.
@@ -19,11 +22,24 @@ function RandomInt(max) {
   // The above function returns a random integer between 0 and the max value.
 }
 
+function CoreConcept(props) {
+  return (
+    <li>
+      <img src={props.image} alt={props.title} />
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
+      {/*The "props" parameter is how react parses custom props set inside
+      the components tag within the App function. This allows for dynamic data.
+      More below inside the App function. */}
+    </li>
+  );
+}
+
 function Header() {
   return (
     <header>
       <img src={reactLogo} alt="Stylized atom" />
-      {/* The above image is imported from the assets folder above. */}
+      {/* The above image is imported from the assets folder explained above. */}
       <h1>React Essentials</h1>
       <p>
         {reactDescriptions[RandomInt(reactDescriptions.length - 1)]}
@@ -55,7 +71,25 @@ function App() {
           if the name is longer than one word, CamelCase must be used.
           You must also always return the JSX.*/}
       <main>
-        <h2>Time to get started!</h2>
+        <section id="core-concepts">
+          <h2>Core Concepts</h2>
+          <ul>
+          <CoreConcept
+           title="Components"
+           description="The core UI building block."
+           image={componentsImg}
+           />
+          {/* React calls the above parameters inside the custom component "Props".
+          Inside the CoreConcept function, a parameter is placed, typically called props again,
+          for react to use for placing the above prop parameters into the function itself as
+          an object of all the props added e.g title, description, image etc.
+          Bare in mind you can add any descriptive word you like as a prop. Just reference
+          it with dot notiation within the related function, as seen above. */}
+          <CoreConcept />
+          <CoreConcept />
+          <CoreConcept />
+          </ul>
+        </section>
       </main>
     </div>
   );
