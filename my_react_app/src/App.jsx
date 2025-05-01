@@ -6,6 +6,10 @@ import componentsImg from './assets/components.png'
 import './App.css'
 // Import the CSS file used to style the app. index.css is used for global styles,
 // while App.css is used for component-specific styles.
+import { CORE_CONCEPTS } from './data.js'
+// the CORE_CONCEPTS array is imported from the data.js file in the workspace.
+// This is the standard way to import data in React and will be used for the 
+// core concepts cards within the app. More below in the App function.
 
 const reactDescriptions = [
   "A JavaScript library for building user interfaces",
@@ -30,7 +34,7 @@ function CoreConcept(props) {
       <p>{props.description}</p>
       {/*The "props" parameter is how react parses custom props set inside
       the components tag within the App function. This allows for dynamic data.
-      More below inside the App function. */}
+      These dot notation accessed props are defined below inside the App function. */}
     </li>
   );
 }
@@ -75,9 +79,9 @@ function App() {
           <h2>Core Concepts</h2>
           <ul>
           <CoreConcept
-           title="Components"
-           description="The core UI building block."
-           image={componentsImg}
+            title="Components"
+            description="The core UI building block."
+            image={componentsImg}
            />
           {/* React calls the above parameters inside the custom component "Props".
           Inside the CoreConcept function, a parameter is placed, typically called props again,
@@ -85,9 +89,29 @@ function App() {
           an object of all the props added e.g title, description, image etc.
           Bare in mind you can add any descriptive word you like as a prop. Just reference
           it with dot notiation within the related function, as seen above. */}
-          <CoreConcept />
-          <CoreConcept />
-          <CoreConcept />
+          <CoreConcept
+            title={CORE_CONCEPTS[1].title}
+            description={CORE_CONCEPTS[1].description}
+            image={CORE_CONCEPTS[1].image}
+          />
+          {/* A different method has been used above to populate the CoreConcept
+            card, an array of data has been parsed from the data.js file in
+            this workspace, imported at the top of the file, and being a 2D array
+            we can access the different sets of data by indexing through the array.   */}
+          <CoreConcept
+            title={CORE_CONCEPTS[2].title}
+            description={CORE_CONCEPTS[2].description}
+            image={CORE_CONCEPTS[2].image}
+          />
+          <CoreConcept
+            {...CORE_CONCEPTS[3]}
+            // The above is a shorthand way of passing all the props from the
+            // CORE_CONCEPTS array to the CoreConcept function.
+            // This is called the "spread operator ..." and is a shorthand way
+            // of passing all the key-value pairs from an object to a function.
+            // This is a common pattern in React and is used to make the code
+            // more readable and easier to maintain.
+          />
           </ul>
         </section>
       </main>
