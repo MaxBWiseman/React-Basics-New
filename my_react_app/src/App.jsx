@@ -11,6 +11,14 @@ import { CORE_CONCEPTS } from './data.js'
 // This is the standard way to import data in React and will be used for the 
 // core concepts cards within the app. More below in the App function.
 
+// It is seen as a good practice to keep the component functions you create
+// in a folder called "components" within seperate files, such as Header.jsx,
+// CoreConcept.jsx etc. This is not done here for simplicity, but is a good practice
+// to follow in larger projects. When importing components, you dont need to use
+// curly braces, as you do with data. e.g import Header from './Header.jsx'.
+// It can also be good practice to pair these component files with
+// its nessessary styles in a CSS file of the same name, such as Header.css.
+
 const reactDescriptions = [
   "A JavaScript library for building user interfaces",
   "A JavaScript library for creating single-page applications",
@@ -38,6 +46,38 @@ function CoreConcept(props) {
     </li>
   );
 }
+
+function TabButton(props) {
+  // document.querySelector('button').addEventListener('click', () => {
+  //   console.log('Button clicked!');
+  // });
+  // The above code adds an event listener to the button element in vanilla JS.
+  // This is not the way to do it in React, as React has its own way of handling events.
+  // The above code is commented out as it is not needed in React.
+  // The below code is the React way of handling events.
+
+  function handleClick() {
+    console.log('Button clicked!');
+    // This code is the React way of handling events.
+    // This function is called when the button is clicked.
+    // You can add any code you want to run when the button is clicked here.
+    // Notice that parentheses are not used when passing the function to the onClick
+    // this is because we want react to call the function, not the user which would
+    // happen if we used parentheses e.g onClick={handleClick()}.
+    // This is a common mistake made by new React developers.
+  }
+
+  return (
+    <li><button onClick={handleClick}>{props.children}</button></li>
+  )
+}
+/* The props.children above is a parameter that react always parses secretley
+  to any custom component, that provides information on what is between the
+  components tag within the App function. Example - <Header> INFO HERE  </Header>
+  (not possible with a self closing tag such as <Header />). See the TabButton
+  tag within App(). This could have also been done with the "label" prop like 
+  <TabButton label="button label" /> with a self closing tag. Although "children"
+  is a nifty built in way to impress your friends. */
 
 function Header() {
   return (
@@ -113,6 +153,15 @@ function App() {
             // more readable and easier to maintain.
           />
           </ul>
+        </section>
+        <section id="examples">
+          <h2>Examples</h2>
+          <menu>
+            <TabButton>Components</TabButton>
+            <TabButton>JSX</TabButton>
+            <TabButton>Props</TabButton>
+            <TabButton>State</TabButton>
+          </menu>
         </section>
       </main>
     </div>
