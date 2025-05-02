@@ -94,7 +94,7 @@ function App() {
   // component function it lives in (in this case App()) and re render the related
   // component with the new value.
 
-  function TabButton(props) {
+  function TabButton({children, isSelected}) {
     // document.querySelector('button').addEventListener('click', () => {
     //   console.log('Button clicked!');
     // });
@@ -104,8 +104,8 @@ function App() {
     // The below code is the React way of handling events.
     
     function handleClick() {
-      console.log(`${props.children} button clicked!`);
-      setButtonChoice(props.children);
+      console.log(`${children} button clicked!`);
+      setButtonChoice(children);
       // This code is the React way of handling events.
       // This function is called when the button is clicked.
       // You can add any code you want to run when the button is clicked here.
@@ -118,15 +118,17 @@ function App() {
 
     return (
       <li>
-        <button onClick={handleClick}>{props.children}</button>
+        <button className={isSelected ? "active" : ""} onClick={handleClick}>{children}</button>
       </li>
     );
     // The button above is what triggers the handleClick function when clicked.
     // This is what is shown in the TabButton function in the App function.
   }
-  /* The props.children above is a parameter that react always parses secretley
+  /* The children variable above is a parameter that react always parses secretley
     to any custom component, that provides information on what is between the
-    components tag within the App function. Example - <Header> INFO HERE  </Header>
+    components tag within the App function Example - <Header> INFO HERE  </Header>.
+    it is usually accessed with props.children but as I am using destructuring
+    with the TabButton function I can access the deconstructed props individually.
     (not possible with a self closing tag such as <Header />). See the TabButton
     tag within App(). This could have also been done with the "label" prop like 
     <TabButton label="button label" /> with a self closing tag. Although "children"
@@ -146,7 +148,7 @@ function App() {
           <ul>
             <CoreConcept
               title="Components"
-              description="The core UI building block."
+              description="The core UI building block - compose the user interface by combining multiple components."
               image={componentsImg}
             />
             {/* React calls the above parameters inside the custom component "Props".
@@ -183,10 +185,10 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton>Components</TabButton>
-            <TabButton>JSX</TabButton>
-            <TabButton>Props</TabButton>
-            <TabButton>State</TabButton>
+            <TabButton isSelected={buttonChoice === "Components"}>Components</TabButton>
+            <TabButton isSelected={buttonChoice === "JSX"}>JSX</TabButton>
+            <TabButton isSelected={buttonChoice === "Props"}>Props</TabButton>
+            <TabButton isSelected={buttonChoice === "State"}>State</TabButton>
           </menu>
           <div id="tab-content">
             <h3>{EXAMPLES[buttonChoice]?.title || "Please select a topic"}</h3>
