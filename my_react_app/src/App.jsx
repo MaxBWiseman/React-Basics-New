@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
+// useState is a very important core concept of React, also known as hooks, 
+// is how react registers changes to the state of a custom component.
+// This is essentially how variables work in React. More on this further on.
 import reactLogo from "./assets/react-core-concepts.png";
 // Import the image used in the header from the assets folder.
 // This is the standard way to use images in React.Reference the image in the
@@ -8,7 +11,8 @@ import "./App.css";
 // Import the CSS file used to style the app. index.css is used for global styles,
 // while App.css is used for component-specific styles.
 import { CORE_CONCEPTS } from "./data.js";
-// the CORE_CONCEPTS array is imported from the data.js file in the workspace.
+import { EXAMPLES } from "./data.js";
+// the CORE_CONCEPTS and EXAMPLES arrays is imported from the data.js file in the workspace.
 // This is the standard way to import data in React and will be used for the
 // core concepts cards within the app. More below in the App function.
 
@@ -75,7 +79,7 @@ function App() {
   // and usually marked with an ID of "root".
   // The App() function is the main function of your React app.
 
-  const [buttonChoice, setButtonChoice] = useState("Please click a button");
+  const [buttonChoice, setButtonChoice] = useState();
   // The above variables are used to store the value of the button clicked.
   // React components can only execute once, so you cannot use a normal
   // variable to hold a changed value, like in vanilla JavaScript
@@ -85,6 +89,10 @@ function App() {
   // value as an argument and returns an array with two elements.
   // The first element is the current value of the state variable and the second
   // element is a function that can be used to update the value of the state variable.
+  // React hooks should always be used at the top level of a component function.
+  // When the state variable is updated, React is basically told to re-execute the
+  // component function it lives in (in this case App()) and re render the related
+  // component with the new value.
 
   function TabButton(props) {
     // document.querySelector('button').addEventListener('click', () => {
@@ -180,9 +188,28 @@ function App() {
             <TabButton>Props</TabButton>
             <TabButton>State</TabButton>
           </menu>
+          <div id="tab-content">
+            <h3>{EXAMPLES[buttonChoice]?.title || "Please select a topic"}</h3>
+            {/* This ensures that EXAMPLES[buttonChoice] when not yet chosen
+            will not throw an error, as the buttonChoice variable is set to
+            nothing by default. The optional chaining operator
+            "?" is used to check if the value is null or undefined before
+            accessing the title property. This is a common pattern in React.
+            The app will display "Please select a topic" instead of crashing
+            due to the || or operator which provides the fall-back values when
+            the left side of the expression fails, checked by the "?" .*/}
+            <p>{EXAMPLES[buttonChoice]?.description}</p>
+            {/* I do not need to set any fall-back values for description or code
+            as the chaining operator will suffice as I am already displaying a 
+            fall-back value in the title. */}
+            <pre>
+              <code>
+                {EXAMPLES[buttonChoice]?.code}
+              </code>
+            </pre>
+          </div>
         </section>
       </main>
-      {buttonChoice}
     </div>
   );
 }
